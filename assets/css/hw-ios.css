@@ -796,7 +796,6 @@ ol.grouped-tableview-links li>a.disclosure.tappable-active:after{
 	min-height: 100%;
 	font-size: 18px;	/* jx: iphone 版改這裏 */
 	line-height: 150%;
-	color: red;
 	overflow: hidden;
 }
 .view section.comments ul{
