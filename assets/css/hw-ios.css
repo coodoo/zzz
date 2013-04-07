@@ -1507,7 +1507,7 @@ ol.grouped-tableview-links li>a.disclosure.tappable-active:after{
 	}
 	.view .post-content header h1 a .link-text,
 	.view section.comments{
-		font-size: 14px;
+		font-size: 18px;
 	}
 	#view-comments>.scroll>section{
 		display: -webkit-box;
