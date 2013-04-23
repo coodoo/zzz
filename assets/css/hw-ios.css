@@ -769,7 +769,8 @@ ol.grouped-tableview-links li>a.disclosure.tappable-active:after{
 
 .view section.comments{
 	min-height: 100%;
-	font-size: 13px;
+	font-size: 18px;	/* jxchanged */
+	line-height: 150%;
 	overflow: hidden;
 }
 .view section.comments ul{
@@ -1482,7 +1483,7 @@ ol.grouped-tableview-links li>a.disclosure.tappable-active:after{
 	}
 	.view .post-content header h1 a .link-text,
 	.view section.comments{
-		font-size: 14px;
+		font-size: 18px;	/*jxchanegd*/
 	}
 	#view-comments>.scroll>section{
 		display: -webkit-box;
