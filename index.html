@@ -33,7 +33,7 @@ if (location.hostname == 'cheeaun.github.io' || location.hostname == 'cheeaun.gi
 		hasLocalStorage = !!localStorage.getItem;
 	} catch(e) {}
 
-	var theme = 'web';
+	var theme = 'ios';	/* use ios theme even on desktop, I like it more that way so sue me.*/
 	if (ua && /iPhone|iPod|iPad/.test(ua) && parseInt((ua.match(/ OS (\d+)_/i) || [,0])[1], 10) >= 5){
 		theme = 'ios';
 	}
