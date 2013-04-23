@@ -6,12 +6,12 @@ A simply readable Hacker News web app. <http://hackerwebapp.com/>
 About
 -----
 
-This project started as one of my silly mini-projects. I create this initially to try out iOS 5+ Mobile Safari's new `-webkit-overflow-scrolling: touch` CSS support. I need some sort of content for scrolling, so why not [Hacker News](http://news.ycombinator.com/)' stories? I'm also trying something called [Fake it 'til you make it](http://snook.ca/archives/conferences/fake-it) which I make the web app looks (and feels) like a native mobile app. In this case, like a native iOS app. If the web app is loaded on non-iOS devices, it'll switch to the 'web' theme which is like a generic theme for other browsers and platforms.
+This project started as one of my silly mini-projects. I create this initially to try out iOS 5+ Mobile Safari's new `-webkit-overflow-scrolling: touch` CSS support. I need some sort of content for scrolling, so why not [Hacker News](https://news.ycombinator.com/)' stories? I'm also trying something called [Fake it 'til you make it](http://snook.ca/archives/conferences/fake-it) which I make the web app looks (and feels) like a native mobile app. In this case, like a native iOS app. If the web app is loaded on non-iOS devices, it'll switch to the 'web' theme which is like a generic theme for other browsers and platforms.
 
 Read my two-part blog post on how I built this web app:
 
-- [How I built the Hacker News mobile web app](http://cheeaun.com/blog/2012/03/how-i-built-hacker-news-mobile-web-app) ([HN thread](http://news.ycombinator.com/item?id=3662709))
-- [How I built the Hacker News mobile web app, Part 2](http://cheeaun.com/blog/2012/03/how-i-built-hacker-news-mobile-web-app_26) ([HN thread](http://news.ycombinator.com/item?id=3756771))
+- [How I built the Hacker News mobile web app](http://cheeaun.com/blog/2012/03/how-i-built-hacker-news-mobile-web-app) ([HN thread](https://news.ycombinator.com/item?id=3662709))
+- [How I built the Hacker News mobile web app, Part 2](http://cheeaun.com/blog/2012/03/how-i-built-hacker-news-mobile-web-app_26) ([HN thread](https://news.ycombinator.com/item?id=3756771))
 
 Also read my introductory post, [Introducing HackerWeb](http://cheeaun.com/blog/2012/12/introducing-hackerweb).
 
@@ -47,33 +47,50 @@ Some of the *cutting-edge* web technologies used:
 Development stuff
 --------------------
 
-### Prerequisites
+- Prerequisites
 
-	git clone git://github.com/cheeaun/hackerweb.git
-	cd hackerweb/
-	npm install
+		git clone git://github.com/cheeaun/hackerweb.git
+		cd hackerweb/
+		npm install
 
-Some tasks will need [Grunt](http://gruntjs.com/getting-started), so install it.
+- [Grunt](http://gruntjs.com/) tasks
 
-	npm install -g grunt-cli
+	- Compile templates in `templates/*` to generate `assets/js/templates.js`
 
-### Running a local server
+			grunt templates
 
-	node server.js -noappcache
+	- Concat and minify JavaScript files in `assets/js/*` to generate `js/*`
 
-The `-noappcache` argument is to prevent browsers from caching everything in the Application Cache.
+			grunt uglify
 
-### Changes to templates
+	- Watch the templates and scripts, run `templates` and `uglify` tasks when they're changed
 
-If there are changes in the `/templates` folder, run this to regenerate `assets/js/templates.js`:
+			grunt watch
 
-	node make-templates.js
+	- Embed images into CSS files
 
-### Changes to scripts
+			grunt embedImages
 
-If there are changes in the `assets/js` folder, run this to regenerate the static JavaScript files:
+		This will parse CSS files in `assets/css/*` and change this (any lines with `url()`):
 
-	grunt uglify
+			background-image: url(PATH); /* embedImages:url(PATH) */
+
+		... into this:
+
+			background-image: url(data:DATAURI); /* embedImages:url(PATH) */
+
+	- Run a local dev server.
+
+			grunt connect
+
+		Arguments:
+
+		- `--appcache` - enable Application Cache
+		- `--port=XX` - specify a custom port number
+
+	- Run both `watch` and `connect` tasks at the same time
+
+			grunt server
 
 Contributing and Feedback
 -------------------------

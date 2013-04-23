@@ -1,6 +1,5 @@
 (function(w){
-	var d = w.document,
-		body = d.body;
+	var d = w.document;
 
 	var $ = w.$ = function(id){
 		return d.getElementById(id);
@@ -43,8 +42,12 @@
 		},
 		setTitle: function(str){
 			var title = 'HackerWeb';
-			str = str.replace(/^\s+|\s+$/g, ''); // trim
-			if (str && str.toLowerCase() != title.toLowerCase()) title = str + ' – ' + title;
+			if (str){
+				str = str.replace(/^\s+|\s+$/g, ''); // trim
+				if (str.toLowerCase() != title.toLowerCase()){
+					title = str + ' – ' + title;
+				}
+			}
 			document.title = title;
 		}
 	};
