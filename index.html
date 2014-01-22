@@ -6,6 +6,7 @@
 <title>HackerWeb</title>
 <meta name="apple-mobile-web-app-title" content="HackerWeb">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <link rel="shortcut icon" href="icons/favicon.ico">
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="icons/touch-icon-144.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icons/touch-icon-114.png">
@@ -13,6 +14,79 @@
 <link rel="apple-touch-icon-precomposed" href="icons/touch-icon.png">
 <script src="//d3nslu0hdya83q.cloudfront.net/dist/1.0/raven.min.js"></script>
 <script>
+
+jQuery(ready);
+
+function ready(){
+
+	console.log( 'ready' );
+
+	jQuery('#send-button').on('click', function(evt){
+
+		evt.preventDefault();
+
+		var $header = jQuery(jQuery('.post-content header a')[0]);
+		var publisher = $header.find('span').text();
+		var title = jQuery('#view-comments > header h1').text();
+		var content = '\n' + location.href + '\n\n' + jQuery('.comments').html();
+
+		// jx
+		jQuery.ajax('https://mandrillapp.com/api/1.0/messages/send.json', 
+		{
+			type:"POST", 
+			data:{
+
+	    	    "key": "fEgERIi_5Cb5YgnAh4pl0g",
+	    	    "message": {
+	    	        "html": content,
+	    	        "subject": title + '(' + publisher + ')',
+	    	        "from_email": "message@example.com",
+	    	        "from_name": "from_hackernews",
+	    	        "to": [
+	    	            {
+	    	                "email": "jx@twmug.com",
+	    	                "type": "to"
+	    	            }
+	    	        ]
+	    	    },
+	    	    "async": false,
+	    	    "ip_pool": "Main Pool"
+	    	}, 
+			success:function(a,b,c){
+				
+				console.log( 'mail sent: ', b );
+
+				var str = "<h1 style='position:fixed; top:-10px; right: 10px; padding:10px; z-index:999; background-color:green; opacity:0.5;color:white;'>SENT</h1>";
+				jQueryelem = jQuery(str);
+				jQuery('body').append(jQueryelem);
+
+				setTimeout( function(){
+					// console.log( 'remove jQueryelem' );
+					jQueryelem.remove();
+				}, 1000*3)
+
+			}.bind(this),
+			
+			error:function( xhr, status, errText ){
+				console.log( 'mail sent failed: ', xhr.responseText );
+			}
+		})
+
+		// console.log( 'email sent > ', jQuery('#text').find('h1').text() );
+
+		return;
+	})
+}
+
+
+
+
+
+
+
+
+
+
 var _gaq = [];
 if (location.hostname == 'cheeaun.github.io' || location.hostname == 'cheeaun.github.com' || location.hostname == 'app.hackerwebapp.com'){
 	Raven.config('https://ba1fa9e133f64714b762e2d8d46a0c63@app.getsentry.com/6152').install();
@@ -113,6 +187,7 @@ if (window.applicationCache){
 	</header>
 	<div class="scroll">
 		<section>
+
 		</section>
 	</div>
 </div>
@@ -120,10 +195,12 @@ if (window.applicationCache){
 	<header>
 		<a href="#/" class="header-button header-button-left header-back-button"><button>News</button></a>
 		<h1 style="margin: 0 65px;"></h1>
+		<div id="send-button" class="header-button header-button-right"><button>SEND</button></div>
 	</header>
 	<div class="scroll">
 		<section>
 		</section>
+
 	</div>
 </div>
 <div class="view hidden" id="view-about">
